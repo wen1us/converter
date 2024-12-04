@@ -96,7 +96,7 @@ func GetCurrentDir() (string, error) {
 
 func PrintCard() {
 	fmt.Println()
-	fmt.Println("to: chen")
+	fmt.Println("to: ding")
 	fmt.Println()
 	fmt.Println("    昨夜有繁星满天，")
 	fmt.Println("    今早有朝霞渐起。")
@@ -105,6 +105,6 @@ func PrintCard() {
 	fmt.Println("    我找到你，")
 	fmt.Println("    它们才有意义。")
 	fmt.Println()
-	fmt.Println("              from: zhan")
+	fmt.Println("              from: chen")
 	fmt.Println()
 }
