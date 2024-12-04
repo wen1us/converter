@@ -13,23 +13,18 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-24.04
-
+    runs-on: ubuntu-latest
+    
+    container:
+      image: your-docker-image:latest  # 确保这个镜像支持 Ubuntu 24.04
+      env:
+        FOO: bar
+        
     steps:
-    - uses: actions/checkout@v2
-
-    - name: Set up Go
-      uses: actions/setup-go@v2
-      with:
-        go-version: '1.17'  # 根据你的项目需要选择合适的Go版本
-
-    - name: Build the project
+    - name: Checkout Code
+      uses: actions/checkout@v3
+      
+    - name: Print OS Details
       run: |
-        cd cmd/gui
-        go build -o converter main.go
-
-    - name: Run tests
-      if: github.ref == 'refs/heads/main'
-      run: |
-        cd cmd/gui
-        go test ./...
+        cat /etc/os-release
+        go version
