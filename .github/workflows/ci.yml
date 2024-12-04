@@ -15,16 +15,20 @@ jobs:
   build:
     runs-on: ubuntu-latest
     
-    container:
-      image: your-docker-image:latest  # 确保这个镜像支持 Ubuntu 24.04
-      env:
-        FOO: bar
-        
     steps:
     - name: Checkout Code
       uses: actions/checkout@v3
       
-    - name: Print OS Details
+    - name: Set up Go
+      uses: actions/setup-go@v4
+      with:
+        go-version: '1.20'  # 根据需要调整
+        
+    - name: Get Dependencies
       run: |
-        cat /etc/os-release
-        go version
+        go mod download
+        go build .
+        
+    - name: Run Tests
+      if: github.ref == 'refs/heads/main'
+      run: go test ./...
