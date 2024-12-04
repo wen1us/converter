@@ -1,0 +1,35 @@
+# This workflow will build a golang project
+# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-go
+
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Set up Go
+      uses: actions/setup-go@v2
+      with:
+        go-version: '1.17'  # 根据你的项目需要选择合适的Go版本
+
+    - name: Build the project
+      run: |
+        cd cmd/gui
+        go build -o converter main.go
+
+    - name: Run tests
+      if: github.ref == 'refs/heads/main'
+      run: |
+        cd cmd/gui
+        go test ./...
